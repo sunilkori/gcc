@@ -2924,6 +2924,18 @@ ginline-points
 Common Driver Var(debug_inline_points) Init(2)
 Generate extended entry point information for inlined functions
 
+ginline-points=df
+Common Driver Var(debug_inline_points, 1) Init(2)
+Don't preserve blocks just for inlined functions
+
+ginline-points=al
+Common Driver Var(debug_inline_points, 3) Init(2)
+Preserve all blocks regarded as inlined function scopes
+
+ginline-points=mr
+Common Driver Var(debug_inline_points, 4) Init(2)
+Preserve blocks referenced by inline entry point markers only
+
 ginternal-reset-location-views
 Common Driver Var(debug_internal_reset_location_views) Init(2)
 Compute locview reset points based on insn length estimates

@@ -520,6 +520,8 @@ remove_unused_scope_block_p (tree scope, bool in_ctor_dtor_block)
    else if (!BLOCK_SUPERCONTEXT (scope)
             || TREE_CODE (BLOCK_SUPERCONTEXT (scope)) == FUNCTION_DECL)
      unused = false;
+   else if (debug_inline_points == 3 && inlined_function_outer_scope_p (scope))
+     unused = false;
    /* Innermost blocks with no live variables nor statements can be always
       eliminated.  */
    else if (!nsubblocks)
@@ -738,7 +740,8 @@ remove_unused_locals (void)
 	     entry point marker as used, this would be a good spot to
 	     do it.  If the block is not otherwise used, the stmt will
 	     be cleaned up in clean_unused_block_pointer.  */
-	  if (is_gimple_debug (stmt))
+	  if (is_gimple_debug (stmt)
+	      && (debug_inline_points != 4 || !gimple_debug_inline_entry_p (stmt)))
 	    continue;
 
 	  if (gimple_clobber_p (stmt))
